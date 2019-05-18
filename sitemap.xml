@@ -8,23 +8,10 @@
   </url>
   
   <url>
-    <loc>https://lhq-lhq.github.io/os/os-2/</loc>
+    <loc>https://lhq-lhq.github.io/post/os/os-2/</loc>
     <lastmod>2019-05-18T11:05:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://lhq-lhq.github.io/post/os-2/</loc>
-    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://lhq-lhq.github.io/os/</loc>
-    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -41,14 +28,7 @@
   </url>
   
   <url>
-    <loc>https://lhq-lhq.github.io/os/os-1/</loc>
-    <lastmod>2019-05-17T21:41:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://lhq-lhq.github.io/post/os-1/</loc>
+    <loc>https://lhq-lhq.github.io/post/os/os-1/</loc>
     <lastmod>2019-05-17T21:41:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
