@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>OS 2</title>
+      <link>https://lhq-lhq.github.io/post/os-2/</link>
+      <pubDate>Sat, 18 May 2019 11:05:13 +0800</pubDate>
+      
+      <guid>https://lhq-lhq.github.io/post/os-2/</guid>
+      <description>进程描述和控制 进程状态 进程总是按照一定的顺序执行指令集，通过列出指令集来描述单个进程的方法叫做进程的跟踪。 超时中断</description>
+    </item>
+    
+    <item>
       <title>电子商务复习文档</title>
       <link>https://lhq-lhq.github.io/post/%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%A4%8D%E4%B9%A0%E9%87%8D%E7%82%B9/</link>
       <pubDate>Sat, 18 May 2019 11:05:13 +0800</pubDate>
@@ -35,6 +44,15 @@
       <pubDate>Fri, 17 May 2019 21:41:35 +0800</pubDate>
       
       <guid>https://lhq-lhq.github.io/os/os-1/</guid>
+      <description>第一章：操作系统概论 操作系统： OS是控制应用程序执行和充当硬件系统和应用程序之间的界面的软件。 操作系统的功能： 1、程序创建 2、程序执行（CP</description>
+    </item>
+    
+    <item>
+      <title>OS 1</title>
+      <link>https://lhq-lhq.github.io/post/os-1/</link>
+      <pubDate>Fri, 17 May 2019 21:41:35 +0800</pubDate>
+      
+      <guid>https://lhq-lhq.github.io/post/os-1/</guid>
       <description>第一章：操作系统概论 操作系统： OS是控制应用程序执行和充当硬件系统和应用程序之间的界面的软件。 操作系统的功能： 1、程序创建 2、程序执行（CP</description>
     </item>
     
