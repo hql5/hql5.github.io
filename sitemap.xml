@@ -4,29 +4,40 @@
   
   <url>
     <loc>https://lhq-lhq.github.io/</loc>
-    <lastmod>2019-05-17T21:41:35+08:00</lastmod>
+    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://lhq-lhq.github.io/post/os-1/</loc>
-    <lastmod>2019-05-17T21:41:35+08:00</lastmod>
+    <loc>https://lhq-lhq.github.io/os/os-2/</loc>
+    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lhq-lhq.github.io/os/</loc>
+    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lhq-lhq.github.io/post/</loc>
-    <lastmod>2019-05-17T21:41:35+08:00</lastmod>
+    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lhq-lhq.github.io/post/%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%A4%8D%E4%B9%A0%E9%87%8D%E7%82%B9/</loc>
+    <lastmod>2019-05-18T11:05:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lhq-lhq.github.io/os/os-1/</loc>
+    <lastmod>2019-05-17T21:41:35+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://lhq-lhq.github.io/post/blog/</loc>
     <lastmod>2019-05-17T20:12:26+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lhq-lhq.github.io/post/%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%A4%8D%E4%B9%A0%E9%87%8D%E7%82%B9/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
