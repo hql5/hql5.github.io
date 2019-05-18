@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on LHQ</title>
+    <title>Posts on LHQ&#39;s Blog</title>
     <link>https://lhq-lhq.github.io/post/</link>
-    <description>Recent content in Posts on LHQ</description>
+    <description>Recent content in Posts on LHQ&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 17 May 2019 21:41:35 +0800</lastBuildDate>
@@ -18,34 +18,15 @@
       
       <guid>https://lhq-lhq.github.io/post/os-1/</guid>
       <description> 第一章：操作系统概论 操作系统： OS是控制应用程序执行和充当硬件系统和应用程序之间的界面的软件。
-操作系统的功能： 1、程序创建
-2、程序执行（CPU分配）
-3、I/O设备的访问
-4、控制对文件的访问
-5、系统访问
-6、差错与纠错
-7、簿记（系统还原）。
+操作系统的功能： 1、程序创建 2、程序执行（CPU分配） 3、I/O设备的访问 4、控制对文件的访问 5、系统访问 6、差错与纠错 7、簿记（系统还原）。
 操作系统的演变  发展因素：硬件升级，新服务，修补
 演变阶段： 手工操作阶段
  串行处理系统
  简单批处理系统
- 多道程序批处理系统
-因为I/O设备的执行速度通常比CPU慢很多，所以引入多道程序批处理系统。
-优点：提高CPU利用率。
- 分时系统（交互性与响应时间优先）
-主机式共享，*时间片轮转*。
-定义：多道程序被用来控制多道互相作用的作业，反映了处理器的时间是由多个用户共享的事实。
-特征：多路性，分时性，独占性。
-关键问题：如何划分时间片大小？
- 实时系统（满足处理与时间的关系）
-特点：
- 和分时系统一样具有多路性和独立性。
- 对外部实时信号必须能及时响应，响应时间间隔要足以控制发出信号的环境。
- 整体性强。
- 虽然也有交互性，但仅限于访问系统中的某些特定的专用服务程序。
- 要求有高可靠性和安全性，系统的效率放在第二位。
-  网络操作系统
-集中模式; C/S; P2P
+ 多道程序批处理系统 因为I/O设备的执行速度通常比CPU慢很多，所以引入多道程序批处理系统。 优点：提高CPU利用率。
+ 分时系统（交互性与响应时间优先） 主机式共享，*时间片轮转*。 定义：多道程序被用来控制多道互相作用的作业，反映了处理器的时间是由多个用户共享的事实。 特征：多路性，分时性，独占性。 关键问题：如何划分时间片大小？
+ 实时系统（满足处理与时间的关系） 特点：
+ 和分时系统一样具有多路性和独立性。 对外部实时信号必须能及时响应，响应时间间隔要足以控制发出信号的环境。 整体性强。 虽然也有交互性，但仅限于访问系统中的某些特定的专用服务程序。 要求有高可靠性和安全性，系统的效率放在第二位。  网络操作系统 集中模式; C/S; P2P
  分布式操作系统
  嵌入式操作系统
 操作系统的主要成就 进程  程序在一个数据集合上的运行过程,是系统进行资源分配和调度的一个独立单位.
@@ -58,15 +39,33 @@
       <pubDate>Fri, 17 May 2019 20:12:26 +0800</pubDate>
       
       <guid>https://lhq-lhq.github.io/post/blog/</guid>
-      <description>1、 安装hugo
-2、 hugo new site [path]
-3、 安装主题 themes.gohugo.io
-4、 本地启动hugo：hugo server –t [themes] –buildDrafts
-5、 hugo new post/blog.md 新建博客
-6、 将个人博客部署到github服务器
-a) 新建repository：[username].github.io
-b) hugo –themes=m10c –baseUrl=https://[username].github.io/ &amp;ndash;buildeDrafts
-c) 当前文件夹下新建public文件夹</description>
+      <description>1、 安装hugo 2、 hugo new site [path] 3、 安装主题 themes.gohugo.io 4、 本地启动hugo：hugo server –t [themes] –buildDrafts 5、 hugo new post/blog.md 新建博客 6、 将个人博客部署到github服务器 a) 新建repository：[username].github.io b) hugo –themes=m10c –baseUrl=https://[username].github.io/ &amp;ndash;buildeDrafts c) 当前文件夹下新建public文件夹</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://lhq-lhq.github.io/post/%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%A4%8D%E4%B9%A0%E9%87%8D%E7%82%B9/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lhq-lhq.github.io/post/%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%A4%8D%E4%B9%A0%E9%87%8D%E7%82%B9/</guid>
+      <description>电子商务的定义： 狭义的电子商务（Eletronic Commerce)EC： 仅指在互联网上开展的交易或与交易有关的活动。
+广义的电子商务(Electronic Business)EB： 是指利用信息技术使整个商务活动实现电子化，包括利用互联网、内联网、外联网等不同形式的网络，以及信息技术进行的商务活动。
+电商的分类：  交易主体分类： 企业与企业之间B2B； 企业与个人消费者之间B2C； 个人消费者与企业之间C2B； 个人消费者与个人消费者之间C2C； 企业与政府之间B2G； 个人消费者与政府之间C2G； B2B2C模式； O2O(线上购买，线下消费)； 商务活动的内容分类(完整度)： 完全电子商务； 不完全电子商务； 信息网络范围分类(地域)： 本地电子商务； 远程国内电子商务； 全球电子商务；
+电子商务的概念模型： 是对现实世界中电子商务活动的抽象描述。 电子商务实体&amp;lt;－－－&amp;gt;交易事务&amp;lt;－－－&amp;gt;电子市场 四个流：信息流、资金流、商流、物流。
+电子商务的框架体系： 网络层：网络基础设施。
+ 信息发布与传输层：解决如何在网络上传输信息和传输何种信息的问题。
+ 电子商务服务层：实现标准的网上商务活动服务。
+ 电子商务应用层：人进行各种实际应用。
+ 国家政策及法律规范。
+ 技术标准和网络协议。
+电子商务的产生与发展(因素、经济、技术）： 产生的条件： 信息技术的发展促进了电子商务的产生。 信用卡的普及应用为电子商务中的网上支付提供了重要手段。 电子商务师社会经济发展的必然趋势。 政府的支持与推动为电子商务的发展提供了有力的支持。
+ 发展阶段： 基于电子数据交换(EDI）的电子商务。 基于互联网的电子商务。 基于3G和4G的移动电子商务。
+电子商务对社会、企业和个人的影响： 个人： 信息获取方式和购物方式的转变； 教育方式和娱乐方式的改变； 满足顾客的个性化需求。
+ 企业： 对企业采购有影响，方便采购。加强与供应商之间的协作关系。 对企业生产加工过程有影响，缩短了生产与研发的周期。减少库存。 对销售有影响，降低企业交易成本。突破时空限制。减轻对实物基础设施的依赖。
+ 社会：
+改变了商务活动的方式。 正带来一个全新的金融业。
+正在转变政府的行为。 将人类真正带入信息社会。
+IP地址的构成： 一个32位的地址，IPv4，IPv6(128)。 IP地址唯一，注册制，按年缴费。</description>
     </item>
     
   </channel>
