@@ -6,10 +6,19 @@
     <description>Recent content on LHQ‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 18 May 2019 11:05:13 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2019 13:13:46 +0800</lastBuildDate>
     
 	<atom:link href="https://lhq-lhq.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>OS 3</title>
+      <link>https://lhq-lhq.github.io/post/os/os-3/</link>
+      <pubDate>Sun, 19 May 2019 13:13:46 +0800</pubDate>
+      
+      <guid>https://lhq-lhq.github.io/post/os/os-3/</guid>
+      <description>第三章：并发控制&amp;ndash;互斥与同步 进程之间的制约关系 同步 一个进程等待另一个协作进程给它提供消息，在消息到达之前，该进程处于阻塞状态，一</description>
+    </item>
     
     <item>
       <title>OS 2</title>
