@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2019-05-19T13:13:46&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-19T13:13:46&#43;08:00" />
-<meta itemprop="wordCount" content="2663">
+<meta itemprop="wordCount" content="2658">
 
 
 
@@ -429,6 +429,50 @@ end.</pre></td></tr></table>
 <h5 id="读者优先">读者优先</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">program readersandwriters;		//读者优先
+var readcount : integer;
+	x, wsem: semaphore(:=1);	//初始化为1,wsem实现互斥</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">procedure reader;		//读者进程
+begin
+	repeat
+		wait(x);		//对P操作，执行后x=0，非负，可以执行该读者进程
+		readcount:= readcount + 1;		//读者进程数目加1
+		if readcount = 1 then wait(wsem);	//有读者在读，互斥信号量wsem执行P操作，减1，不允许写进程访问
+		signal(x);		//对x执行V操作
+	READUNIT;
+		wait(x);		//对x进行P操作
+		readcount := readcount - 1;
+		if readcount = 0 then signal(wsem);	//没有读者在读，wsem进行V操作
+		signal(x);		//对x执行V操作
+	forever
+end;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -446,47 +490,9 @@ end.</pre></td></tr></table>
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">program readersandwriters;		//读者优先
-var readcount : integer;
-	x, wsem: semaphore(:=1);	//初始化为1,wsem实现互斥
-
-procedure reader;		//读者进程
-begin
-	repeat
-		wait(x);		//对P操作，执行后x=0，非负，可以执行该读者进程
-		readcount:= readcount + 1;		//读者进程数目加1
-		if readcount = 1 then wait(wsem);	//有读者在读，互斥信号量wsem执行P操作，减1，不允许写进程访问
-		signal(x);		//对x执行V操作
-	READUNIT;
-		wait(x);		//对x进行P操作
-		readcount := readcount - 1;
-		if readcount = 0 then signal(wsem);	//没有读者在读，wsem进行V操作
-		signal(x);		//对x执行V操作
-	forever
-end;
-
-procedure writer;		//写者进程
+<pre class="chroma">procedure writer;		//写者进程
 begin
 	repeat
 		wait(wsem);		//对互斥wsem进行P操作，wsem-1
@@ -515,6 +521,17 @@ end;</pre></td></tr></table>
 <li><p>readers添加一个信号量z，为了避免rsem队列较长，所以，只允许一个reader在rsem上排队，其余的readers在等待rsem之前要在z上排队。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">program readersandwriter;
+var readcount,writecount: integer;
+	x,y,z,wsem,rsem: semaphore(:=1);</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -533,42 +550,9 @@ end;</pre></td></tr></table>
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">program readersandwriter;
-var readcount,writecount: integer;
-	x,y,z,wsem,rsem: semaphore(:=1);
-	
-procedure reader;		//读者进程
+<pre class="chroma">procedure reader;		//读者进程
 begin
 	repeat
 		wait(z);
@@ -585,9 +569,28 @@ begin
 			if readcount = 0 then signal(wsem);
 			signal(x);
 	forever
-end;
-
-procedure writer;		//写者进程
+end;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">procedure writer;		//写者进程
 begin
 	repeat
 		wait(y);
@@ -601,9 +604,21 @@ begin
 			if writecount = 1 then wait(rsem);	//if writecount=0 then signal(rsem)
 		signal(y);
 	forever
-end;
-
-main program;
+end;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">main program;
 begin
 	readcount, writecount := 0;
 	parbegin
