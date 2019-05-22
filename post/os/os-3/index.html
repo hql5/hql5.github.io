@@ -51,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2019-05-19T13:13:46&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-19T13:13:46&#43;08:00" />
-<meta itemprop="wordCount" content="2658">
+<meta itemprop="wordCount" content="2949">
 
 
 
@@ -143,7 +143,7 @@
 <li><a href="#互斥">互斥★</a>
 <ul>
 <li><a href="#定义">定义：</a></li>
-<li><a href="#临界区的访问原则">临界区的访问原则:</a></li>
+<li><a href="#临界区的访问原则">临界区的访问原则:★</a></li>
 <li><a href="#互斥的实现产生的两个控制问题">互斥的实现产生的两个控制问题：</a></li>
 <li><a href="#互斥-同步的解决方案">互斥&amp;同步的解决方案</a></li>
 </ul></li>
@@ -152,16 +152,16 @@
 <ul>
 <li><a href="#基本原则">基本原则</a></li>
 <li><a href="#数据结构">数据结构</a></li>
-<li><a href="#信号量的操作">信号量的操作</a></li>
+<li><a href="#信号量的操作">信号量的操作★</a></li>
 <li><a href="#二元信号量">二元信号量</a></li>
 <li><a href="#信号量解决生产者-消费者问题">信号量解决生产者/消费者问题</a>
 <ul>
-<li><a href="#二元信号量解决">二元信号量解决</a></li>
+<li><a href="#假设缓冲区无限大小的情况下">假设缓冲区无限大小的情况下：</a></li>
+<li><a href="#假设缓冲区有限大小的情况下">假设缓冲区有限大小的情况下：</a></li>
 </ul></li>
 <li><a href="#信号量解决读者-写者问题">信号量解决读者/写者问题</a>
 <ul>
-<li><a href="#约束条件">约束条件</a></li>
-<li><a href="#使用信号量解决">使用信号量解决</a>
+<li><a href="#约束条件">约束条件</a>
 <ul>
 <li><a href="#读者优先">读者优先</a></li>
 <li><a href="#写者优先-读者优先中-只要有reader不间断访问数据区-writer进程会饥饿">写者优先（读者优先中，只要有reader不间断访问数据区，writer进程会饥饿）</a></li>
@@ -193,7 +193,7 @@
 <p>假设两个或两个以上的进程要访问同一个不可共享的资源（如打印机），这种资源称为<strong>临界资源</strong>，访问临界资源的那一部分程序称为程序的<strong>临界段（临界区）</strong>。
 <strong>互斥</strong>就是要保证临界资源在某一时刻只被一个进程访问。</p>
 
-<h4 id="临界区的访问原则">临界区的访问原则:</h4>
+<h4 id="临界区的访问原则">临界区的访问原则:★</h4>
 
 <ol>
 <li>空闲让进。当没有进程处于临界区时，请求进入临界区的进程可以立即进入。</li>
@@ -253,7 +253,7 @@
 }</pre></td></tr></table>
 </div>
 </div>
-<h3 id="信号量的操作">信号量的操作</h3>
+<h3 id="信号量的操作">信号量的操作★</h3>
 
 <blockquote>
 <p>只有三种操作，P、V操作都是原子操作，即原语。</p>
@@ -328,9 +328,10 @@ signalB(s):					//V操作，发出信号
 
 <p>问题描述：一个或更多生产者生产出某种类型的数据，并把它们送入缓冲区，唯一的一个消费者一次从缓冲区取走一个数据，系统要保证缓冲区操作不重叠，即在任一时刻只能有一方访问缓冲区。</p>
 
-<h4 id="二元信号量解决">二元信号量解决</h4>
+<h4 id="假设缓冲区无限大小的情况下">假设缓冲区无限大小的情况下：</h4>
 
-<p>假设缓冲区无限大小的情况下：</p>
+<blockquote>
+<p>二元信号量解决</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
@@ -358,7 +359,8 @@ begin
 	forever
 end;</pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div></blockquote>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -397,7 +399,7 @@ end;</pre></td></tr></table>
 </span><span class="lnt">6
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">begin ( * mian program * )		//main
+<pre class="chroma">begin ( * main program * )		//main
 	n:= 0;
 	parbegin
 		producer; consumer
@@ -405,6 +407,101 @@ end;</pre></td></tr></table>
 end.</pre></td></tr></table>
 </div>
 </div>
+<h4 id="假设缓冲区有限大小的情况下">假设缓冲区有限大小的情况下：</h4>
+
+<blockquote>
+<p>一般信号量解决
+  e：空缓冲区大小
+  s：缓冲区使用权
+  N：缓冲区产品数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">program boundedbuffer;
+const sizeofbuffer = 2;
+var s: semaphore (: = 1);	//定义信号量s  n  e
+	n: semaphore (: = 0);
+	e: semaphore (: = sizeofbuffer);</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">procedure producer;
+begin
+	repeat
+		produce;
+		wait(e);	//P操作，查看缓冲区是否满了
+		wait(s);	//P操作，查看缓冲区能否使用
+		append;		//放入缓冲区数据
+		signal(s);	//V操作，释放缓冲区使用权
+		signal(n);	//V操作，缓冲区产品数增加
+	forever
+end;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">procedure consumer;		//消费者
+begin
+	repeat
+		wait(n)；	//P操作，查看缓冲区是否有数据
+		wiat(s);	//P操作，获得缓冲区使用权
+		take;
+		signal(s);	//V操作，释放缓冲区使用权
+		signal(e);	//V操作，空缓冲区大小增加（缓冲区数据减少，taken）
+		consume;
+	forever
+end;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">beginn (* main program *)		//main
+	parbegin
+		producer;
+		consumer;
+	parend
+end.</pre></td></tr></table>
+</div>
+</div></blockquote>
+
 <h3 id="信号量解决读者-写者问题">信号量解决读者/写者问题</h3>
 
 <p>问题描述：一些进程共享一个数据区。数据区可以是一个文件、一跨内存空间或一组寄存器。<strong>readers</strong>进程只能读数据区中的数据，<strong>writers</strong>进程只能写。
@@ -418,15 +515,13 @@ end.</pre></td></tr></table>
 <li>如果writers正在写，那么readers就不能读。</li>
 </ol>
 
-<h4 id="使用信号量解决">使用信号量解决</h4>
+<h5 id="读者优先">读者优先</h5>
 
 <ol>
 <li>只要有writer在访问数据区，其他writers或readers就不能访问数据区。</li>
 <li>对于多个readers，当没有reader在读时，第一个进行读的reader要测试wsem；当已经有reader在读时，随后的reader无需等待就可读取数据区。</li>
-<li>全局变量readercount记录reader数目，信号量x用于保证readcount的正确性。</li>
-</ol>
 
-<h5 id="读者优先">读者优先</h5>
+<li><p>全局变量readercount记录reader数目，信号量x用于保证readcount的正确性。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -473,23 +568,14 @@ end;</pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></pre></td>
 <td class="lntd">
 <pre class="chroma">procedure writer;		//写者进程
@@ -499,9 +585,21 @@ begin
 		WRITEUNIT;		//执行写者进程
 		signal(wsem);	//对互斥wsem进行V操作，wsem+1
 	forever
-end;
-
-main program;
+end;</pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">main program;
 begin
 	readcount := 0;		//初始化读者进程为0
 	parbegin
@@ -510,7 +608,9 @@ begin
 	parend
 end;</pre></td></tr></table>
 </div>
-</div>
+</div></li>
+</ol>
+
 <h5 id="写者优先-读者优先中-只要有reader不间断访问数据区-writer进程会饥饿">写者优先（读者优先中，只要有reader不间断访问数据区，writer进程会饥饿）</h5>
 
 <ol>

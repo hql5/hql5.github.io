@@ -6,7 +6,7 @@
     <description>Recent content in Posts on LHQ‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 May 2019 16:31:26 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2019 17:11:10 +0800</lastBuildDate>
     
 	<atom:link href="https://lhq-lhq.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,10 @@
     <item>
       <title>OS 4</title>
       <link>https://lhq-lhq.github.io/post/os/os-4/</link>
-      <pubDate>Sun, 19 May 2019 16:31:26 +0800</pubDate>
+      <pubDate>Wed, 22 May 2019 17:11:10 +0800</pubDate>
       
       <guid>https://lhq-lhq.github.io/post/os/os-4/</guid>
-      <description>​</description>
+      <description>第四章：死锁处理 讨论互斥实现带来的问题：死锁和饥饿 然后讨论解决死锁的3种途径： 1. 死锁预防 2. 死锁避免 3. 死锁检测和恢复 问题概述 定义★ 死锁是指多个</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       <pubDate>Sat, 18 May 2019 11:05:13 +0800</pubDate>
       
       <guid>https://lhq-lhq.github.io/post/os/os-2/</guid>
-      <description>第二章：进程描述和控制 进程状态 进程总是按照一定的顺序执行指令集，通过列出指令集来描述单个进程的方法叫做进程的跟踪。 三种基本状态:★ 运行：占有</description>
+      <description>第二章：进程描述和控制 进程状态 ★进程总是按照一定的顺序执行指令集，通过列出指令集来描述单个进程的方法叫做进程的跟踪。 三种基本状态:★ 运行：占</description>
     </item>
     
     <item>
@@ -53,7 +53,7 @@
       <pubDate>Fri, 17 May 2019 21:41:35 +0800</pubDate>
       
       <guid>https://lhq-lhq.github.io/post/os/os-1/</guid>
-      <description>第一章：操作系统概论 操作系统： OS是控制应用程序执行和充当硬件系统和应用程序之间的界面的软件。 操作系统的功能： 1、程序创建 2、程序执行（CP</description>
+      <description>第一章：操作系统概论 操作系统：★ OS是控制应用程序执行和充当硬件系统和应用程序之间的界面的软件。 操作系统的功能： 处理机管理：处理机的调度策略</description>
     </item>
     
     <item>

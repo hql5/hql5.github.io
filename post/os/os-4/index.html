@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lhq" /><meta name="description" content="​" /><meta name="keywords" content="LHQ, theme, even" />
+<meta name="author" content="lhq" /><meta name="description" content="第四章：死锁处理 讨论互斥实现带来的问题：死锁和饥饿 然后讨论解决死锁的3种途径： 1. 死锁预防 2. 死锁避免 3. 死锁检测和恢复 问题概述 定义★ 死锁是指多个" /><meta name="keywords" content="LHQ, theme, even" />
 
 
 
@@ -39,26 +39,26 @@
 
 
 <meta property="og:title" content="OS 4" />
-<meta property="og:description" content="​" />
+<meta property="og:description" content="第四章：死锁处理 讨论互斥实现带来的问题：死锁和饥饿 然后讨论解决死锁的3种途径： 1. 死锁预防 2. 死锁避免 3. 死锁检测和恢复 问题概述 定义★ 死锁是指多个" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lhq-lhq.github.io/post/os/os-4/" />
-<meta property="article:published_time" content="2019-05-19T16:31:26&#43;08:00"/>
-<meta property="article:modified_time" content="2019-05-19T16:31:26&#43;08:00"/>
+<meta property="article:published_time" content="2019-05-22T17:11:10&#43;08:00"/>
+<meta property="article:modified_time" content="2019-05-22T17:11:10&#43;08:00"/>
 
 <meta itemprop="name" content="OS 4">
-<meta itemprop="description" content="​">
+<meta itemprop="description" content="第四章：死锁处理 讨论互斥实现带来的问题：死锁和饥饿 然后讨论解决死锁的3种途径： 1. 死锁预防 2. 死锁避免 3. 死锁检测和恢复 问题概述 定义★ 死锁是指多个">
 
 
-<meta itemprop="datePublished" content="2019-05-19T16:31:26&#43;08:00" />
-<meta itemprop="dateModified" content="2019-05-19T16:31:26&#43;08:00" />
-<meta itemprop="wordCount" content="1">
+<meta itemprop="datePublished" content="2019-05-22T17:11:10&#43;08:00" />
+<meta itemprop="dateModified" content="2019-05-22T17:11:10&#43;08:00" />
+<meta itemprop="wordCount" content="1904">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OS 4"/>
-<meta name="twitter:description" content="​"/>
+<meta name="twitter:description" content="第四章：死锁处理 讨论互斥实现带来的问题：死锁和饥饿 然后讨论解决死锁的3种途径： 1. 死锁预防 2. 死锁避免 3. 死锁检测和恢复 问题概述 定义★ 死锁是指多个"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -124,7 +124,7 @@
       <h1 class="post-title">OS 4</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-05-19 </span>
+        <span class="post-time"> 2019-05-22 </span>
         
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -133,11 +133,620 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#第四章-死锁处理">第四章：死锁处理</a>
+<ul>
+<li><a href="#问题概述">问题概述</a>
+<ul>
+<li><a href="#定义">定义★</a></li>
+<li><a href="#产生原因">产生原因★</a></li>
+<li><a href="#死锁产生的四个必要条件">死锁产生的四个必要条件：★</a></li>
+</ul></li>
+<li><a href="#死锁处理">死锁处理</a>
+<ul>
+<li><a href="#死锁预防">死锁预防</a></li>
+<li><a href="#死锁避免">死锁避免</a>
+<ul>
+<li><a href="#避免启动新进程">避免启动新进程</a></li>
+<li><a href="#避免分配资源">避免分配资源★</a></li>
+</ul></li>
+<li><a href="#死锁检测">死锁检测</a></li>
+<li><a href="#死锁恢复">死锁恢复</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
-      <p>​</p>
+      
+
+<h1 id="第四章-死锁处理">第四章：死锁处理</h1>
+
+<blockquote>
+<p>讨论互斥实现带来的问题：死锁和饥饿
+然后讨论解决死锁的3种途径：
+  1. 死锁预防
+  2. 死锁避免
+  3. 死锁检测和恢复</p>
+</blockquote>
+
+<hr />
+
+<h2 id="问题概述">问题概述</h2>
+
+<h3 id="定义">定义★</h3>
+
+<p>死锁是指多个（两个及以上）进程的永久性阻塞现象。</p>
+
+<h3 id="产生原因">产生原因★</h3>
+
+<ol>
+<li>进程间竞争资源。</li>
+<li>进程推进顺序非法。</li>
+</ol>
+
+<h3 id="死锁产生的四个必要条件">死锁产生的四个必要条件：★</h3>
+
+<p>死锁产生的主要原因是可共享的系统资源不足，资源分配策略和进程的推进顺序不当，系统资源可以分为<strong>可重用资源</strong>和<strong>消耗性资源</strong>（中断、消息、I/O缓冲区中的信息等）。</p>
+
+<p>可重用资源产生死锁的必要条件：</p>
+
+<ol>
+<li>互斥条件：独占条件，任一时刻只能有一个进程使用某一资源。</li>
+<li>占用并等待条件：进程占用部分资源后还在等待分配其他资源。</li>
+<li>非抢占条件：进程已获得的资源，在进程自愿释放之前，CPU不能剥夺此资源。</li>
+<li>循环等待条件：一个进程链中，每个进程至少占有一个其他进程所必须的资源，从而形成一个等待链。</li>
+</ol>
+
+<hr />
+
+<h2 id="死锁处理">死锁处理</h2>
+
+<p>为了是系统不发生死锁，必须设法破坏死锁的四个必要条件之一，或者允许死锁产生，但是能够进行检测恢复。</p>
+
+<p>采用如下策略之一来解决：
+1. 采用静态分配方法来预防死锁。
+2. 采用有控分配方法来避免死锁。
+3. 当死锁发生时检测出死锁，并恢复。</p>
+
+<h3 id="死锁预防">死锁预防</h3>
+
+<ul>
+<li><p>间接方法
+防止出现死锁产生的前3个条件。</p></li>
+
+<li><p>直接方法
+防止第4个条件（循环等待）的出现。</p></li>
+</ul>
+
+<p>★</p>
+
+<ol>
+<li>打破互斥。解决互斥问题&ndash;信号量。</li>
+<li>破话占用并等待条件。静态分配资源。</li>
+<li>破坏非抢占条件。CPU使用抢占调度策略。</li>
+<li>打破循环等待。进行资源定序，将不同类型的资源定序。</li>
+</ol>
+
+<h3 id="死锁避免">死锁避免</h3>
+
+<ol>
+<li>如果进程对资源的申请可能导致死锁，就不启动这个进程。</li>
+<li>如果进程对资源的申请可能导致死锁，就不给进程分配资源。</li>
+</ol>
+
+<h4 id="避免启动新进程">避免启动新进程</h4>
+
+<p>当且仅当当前所有进程和新进程的最大资源需求量之和能被系统满足时，才能启动一个新的进程。</p>
+
+<h4 id="避免分配资源">避免分配资源★</h4>
+
+<p><strong>Banker（银行家）算法</strong></p>
+
+<ul>
+<li>状态：资源分配给进程的情况，包括Resource和Available两个向量，Claim和Allocation两个矩阵。</li>
+<li>安全状态：进程至少能以一种顺序执行完毕而不会导致死锁的状态。</li>
+</ul>
+
+<p><strong>例</strong>：进程P1 ,P2, P3, P4共享3种资源R1, R2, R3。资源R1，R2，R3分别有9，3，6个。当前资源已分配给4个进程，只有R2，R3有一个空闲，问题：此状态是否安全？</p>
+
+<ol>
+<li>初始情况</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">需要资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center">3</td>
+<td align="center">6</td>
+<td align="center">3</td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">分配资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center">1</td>
+<td align="center">6</td>
+<td align="center">2</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">可用资源</th>
+<th align="center">R1</th>
+<th align="center">R2</th>
+<th align="center">R3</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>P1需要（322），已分配（100），还需（222），可用资源无法满足</p>
+
+<p>P2需要（613）资源，已分配（612），还需（001），可用资源可以满足P2，所以接着<strong>执行P2</strong>。</p>
+</blockquote>
+
+<ol>
+<li>执行P2</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">需要资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center"><em>2</em></td>
+<td align="center"><em>0</em></td>
+<td align="center"><em>1</em></td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">2</td>
+<td align="center"><em>0</em></td>
+<td align="center"><em>0</em></td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">2</td>
+<td align="center"><em>1</em></td>
+<td align="center"><em>3</em></td>
+<td align="center"><em>0</em></td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">分配资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center">1</td>
+<td align="center"><em>0</em></td>
+<td align="center">2</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">可用资源</th>
+<th align="center">R1</th>
+<th align="center">R2</th>
+<th align="center">R3</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="center"><em>6</em></td>
+<td align="center"><em>2</em></td>
+<td align="center"><em>3</em></td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>需要资源</p>
+
+<blockquote>
+<p>P1需要（322），已分配（100），仍需（222）；</p>
+
+<p>P2需要（613），已分配（612），仍需（001）；</p>
+
+<p>P3需要（314），已分配（211），仍需（103）；</p>
+
+<p>P4需要（422），已分配（001），仍需（420）；</p>
+</blockquote>
+
+<p>分配资源</p>
+
+<blockquote>
+<p>执行P2后，P2分配资源释放，为（000）</p>
+</blockquote>
+
+<p>可用资源</p>
+
+<blockquote>
+<p>为第1步的可用资源（011）加上P2释放后的（612），为（623）。</p>
+</blockquote>
+
+<p>P1需要资源（222），可用资源（623），满足P1，接着<strong>执行P1</strong></p>
+</blockquote>
+
+<ol>
+<li>执行P1</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">需要资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center"><em>0</em></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center"><em>0</em></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center"><em>0</em></td>
+<td align="center"><em>0</em></td>
+<td align="center">3</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">分配资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center"><em>0</em></td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">可用资源</th>
+<th align="center">R1</th>
+<th align="center">R2</th>
+<th align="center">R3</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="center"><em>7</em></td>
+<td align="center"><em>2</em></td>
+<td align="center"><em>3</em></td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>需要资源</p>
+
+<blockquote>
+<p>P1需要（222），可用资源（623），分配给P1，仍需（000）</p>
+
+<p>P2（000）</p>
+
+<p>P3需要（103），由第2步得到</p>
+
+<p>P4需要（420），由第2步得到</p>
+</blockquote>
+
+<p>分配资源</p>
+
+<blockquote>
+<p>P1执行完成后，释放资源，为（000）</p>
+
+<p>P3，P4同第2步一样</p>
+</blockquote>
+
+<p>可用资源</p>
+
+<blockquote>
+<p>第2步的（623）加上P1释放的（100），为（723）</p>
+</blockquote>
+
+<p>此时，P3仍需（103），P4仍需（420），可用（723），都可满足，结社<strong>执行P3</strong></p>
+</blockquote>
+
+<ol>
+<li>执行P3</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">需要资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">4</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">2</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">分配资源</th>
+<th align="center">P1</th>
+<th align="center">P2</th>
+<th align="center">P3</th>
+<th align="center">P4</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">R1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">0</td>
+</tr>
+
+<tr>
+<td align="center">R3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center"><em>0</em></td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+<tr>
+<th align="center">可用资源</th>
+<th align="center">R1</th>
+<th align="center">R2</th>
+<th align="center">R3</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="center"><em>9</em></td>
+<td align="center"><em>3</em></td>
+<td align="center"><em>4</em></td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>可用资源</p>
+
+<blockquote>
+<p>第3步的（723）加上P3释放后（211），为（934）</p>
+
+<p>可以满足P4</p>
+</blockquote>
+</blockquote>
+
+<p><strong>综上，按照P2&ndash;P1&ndash;P3&ndash;P4的顺序执行进程，系统处于安全状态！</strong></p>
+
+<h3 id="死锁检测">死锁检测</h3>
+
+<p>死锁预防通过对资源的访问和对进程的约束来解决死锁问题。
+死锁检测，OS只是周期地执行检测循环等待条件的算法。</p>
+
+<h3 id="死锁恢复">死锁恢复</h3>
+
+<p>恢复死锁的基本方法是剥夺。</p>
+
+<ul>
+<li>杀死所有死锁进程。</li>
+<li>所有死锁进程退回定义检测点，重新执行。要求OS有撤回和重启机制。</li>
+<li>逐个杀死死锁进程直到死锁消失。</li>
+<li>逐个抢占其他进程的资源直到死锁消失。</li>
+</ul>
+
+<blockquote>
+<p>第5章主要讲内存管理相关知识，包括存储管理（及实现技术），虚拟存储器，地址转换，分页、分段、及段页式存储管理和置换算法。</p>
+</blockquote>
 
     </div>
 
@@ -149,7 +758,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2019-05-19
+        2019-05-22
         
     </span>
   </p>
