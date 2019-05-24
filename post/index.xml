@@ -6,10 +6,19 @@
     <description>Recent content in Posts on LHQ‘s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 May 2019 17:11:10 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 May 2019 12:31:55 +0800</lastBuildDate>
     
 	<atom:link href="https://lhq-lhq.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>OS 5</title>
+      <link>https://lhq-lhq.github.io/post/os/os-5/</link>
+      <pubDate>Thu, 23 May 2019 12:31:55 +0800</pubDate>
+      
+      <guid>https://lhq-lhq.github.io/post/os/os-5/</guid>
+      <description>第5章：内存管理 虚拟存储器 定义 虚拟存储器并不是以物理方式存在的存储器，而是具有请求调入和交换功能、能从逻辑上对内存容量进行扩充、给用户提供一</description>
+    </item>
     
     <item>
       <title>OS 4</title>
